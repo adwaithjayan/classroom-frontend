@@ -1,5 +1,5 @@
-import { GitHubBanner, Refine, WelcomePage } from "@refinedev/core";
-import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
+import { Refine } from "@refinedev/core";
+import { DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import routerProvider, {
@@ -15,7 +15,7 @@ import { dataProvider } from "./providers/data";
 import Dashboard from "./pages/dashboard";
 import { BookOpen, Home } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
-import SubjectsList from "./pages/subjectes/list";
+import SubjectListPage from "./pages/subjectes/list";
 import SubjectsCreate from "./pages/subjectes/create";
 
 function App() {
@@ -35,26 +35,31 @@ function App() {
               }}
               resources={[
                 {
-                  name:'dashboard',
-                  list:"/",
-                  meta:{label:'Home',icon:<Home/>}
+                  name: "dashboard",
+                  list: "/",
+                  meta: { label: "Home", icon: <Home /> },
                 },
                 {
-                  name:"subjects",
-                  list:"/subjects",
-                  create:"/subjects/create",
-                  meta:{label:'Subjects',icon:<BookOpen/>}
-                }
+                  name: "subjects",
+                  list: "/subjects",
+                  create: "/subjects/create",
+                  meta: { label: "Subjects", icon: <BookOpen /> },
+                },
               ]}
             >
               <Routes>
-                <Route element={<Layout >
-                  <Outlet/>
-                </Layout>} />
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/subjects">
-                  <Route index element={<SubjectsList />} />
-                  <Route path="create" element={<SubjectsCreate />} />
+                <Route
+                  element={
+                    <Layout>
+                      <Outlet />
+                    </Layout>
+                  }
+                >
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/subjects">
+                    <Route index element={<SubjectListPage />} />
+                    <Route path="create" element={<SubjectsCreate />} />
+                  </Route>
                 </Route>
               </Routes>
               <Toaster />
